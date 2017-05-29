@@ -1,0 +1,63 @@
+{% extends "content.html" %}
+
+{% macro show_image(image) -%}
+    <div class="ui bordered image">
+      <img src="{{ STATIC_URL }}/images/white-image.png"
+           data-src="/salida/{{ image }}">
+    </div>
+{%- endmacro %}
+
+{% block content %}
+<h1 class="ui header">
+    <i class="{{ page.icon }} full icon"></i>
+    <div class="content">
+        {{ page.title }}
+        <div class="sub header">{{ page.description }}</div>
+    </div>
+</h1>
+<div class="ui secondary pointing menu">
+    <a class="item" data-tab="panel-one">
+        Descripción
+    </a>
+    <a class="item" data-tab="panel-two">
+        Precipitación
+    </a>
+    <a class="item" data-tab="panel-three">
+        Temperatura
+    </a>
+</div>
+<div class="ui segment tab" data-tab="panel-one">
+    {{ page }}
+
+    <div class="ui one column centered grid">
+        <div class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/white-image.png"
+                 data-src="{{ STATIC_URL }}/images/{{ page.image }}">
+        </div>
+    </div>
+</div>
+<div class="ui segment tab" data-tab="panel-two">
+    {% for image in model.prec %}
+        {{ show_image(image) }}
+    {% endfor %}
+</div>
+<div class="ui segment tab" data-tab="panel-three">
+     {% for image in model.temp %}
+        {{ show_image(image) }}
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    $('.menu .item').tab({
+        onVisible: function() {
+            $(this).find('img').visibility({
+                type       : 'image',
+                transition : 'fade in',
+                duration   : 1000
+            });
+        }
+    }).tab("change tab", "panel-one");
+</script>
+{% endblock %}

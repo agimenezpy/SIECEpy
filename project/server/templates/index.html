@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Productos
+{% endblock %}
+
+{% block content %}
+<h1 class="ui huge centered header">
+Sistema de Información para la adaptación a eventos climáticos extremos
+</h1>
+<h2 class="ui grey centered header">Pronósticos Disponibles</h2>
+<div class="ui two column centered grid">
+    <div class="row">
+        <div class="column">
+        <a href="tiempo.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+            data-src="{{ STATIC_URL }}/images/short_forecast.png">
+            <div class="ui bottom attached blue label">Corto Plazo</div>
+        </a>
+        </div>
+        <div class="column">
+            <a href="clima.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+            data-src="{{ STATIC_URL }}/images/medium_forecast.png">
+                <div class="ui bottom attached green label">Mediano Plazo</div>
+            </a>
+        </div>
+    </div>
+    <div class="two column centered row">
+        <div class="column">
+        <a href="atmos.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+            data-src="{{ STATIC_URL }}/images/atmos.png">
+            <div class="ui bottom attached yellow label">Atmósfera</div>
+        </a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extrajs %}
+<script type="text/javascript">
+    $('img').visibility({
+        type       : 'image',
+        transition : 'fade in',
+        duration   : 1000
+    });
+</script>
+{% endblock %}

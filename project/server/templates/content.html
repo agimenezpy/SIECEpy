@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ page.title }}
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="ui breadcrumb">
+<a class="section" href="{{ url_for("index") }}">Inicio</a>
+<div class="divider"> / </div>
+<div class="active section">{{ page.title }}</div>
+</div>
+{% endblock %}
+
+
