@@ -76,7 +76,7 @@
         </div>
     </div>
 
-    <div id="main-region" class="ui main text container">
+    <div id="main-region" class="ui {% block bodyclass %}text{% endblock %} container">
     {% block breadcrumbs %}{% endblock %}
     {% block content %} {% endblock content %}
     </div>
@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+    {% block dialog %}{% endblock %}
 </div>
 
 

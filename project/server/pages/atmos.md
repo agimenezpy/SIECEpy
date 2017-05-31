@@ -11,6 +11,3 @@ desarrollado por la NCAR para investigación del clima y el tiempo. </p>
 
 La simulación se sobre toda la cobertura del PLANETA a una resolución de 90 KILOMETROS
 en un periodo de 3 MESES con las variables.
-
-* Precipitación
-* Temperatura

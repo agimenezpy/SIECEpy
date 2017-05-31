@@ -11,6 +11,3 @@ El modelo _Weather Research and Forecasting (WRF)_ es un sistema de predicción 
         
 La simulación para predicción del clima se hace para la región de SUDAMERICA a una resolución de 30 KILOMETROS
 en un periodo de 3 MESES con las variables.
-
-* Precipitación
-* Temperatura

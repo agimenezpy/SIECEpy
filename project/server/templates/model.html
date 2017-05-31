@@ -2,8 +2,9 @@
 
 {% macro show_image(image) -%}
     <div class="ui bordered image">
-      <img src="{{ STATIC_URL }}/images/white-image.png"
-           data-src="/salida/{{ image }}">
+        <div class="ui small header centered">{{ image.title }}</div>
+       <a href="#show"> <img src="{{ STATIC_URL }}/images/white-image.png"
+           data-src="/salida/{{ image.content }}" title="{{ image.title }}"></a>
     </div>
 {%- endmacro %}
 
@@ -15,10 +16,8 @@
         <div class="sub header">{{ page.description }}</div>
     </div>
 </h1>
+{{ page }}
 <div class="ui secondary pointing menu">
-    <a class="item" data-tab="panel-one">
-        Descripción
-    </a>
     <a class="item" data-tab="panel-two">
         Precipitación
     </a>
@@ -26,27 +25,34 @@
         Temperatura
     </a>
 </div>
-<div class="ui segment tab" data-tab="panel-one">
-    {{ page }}
-
-    <div class="ui one column centered grid">
-        <div class="ui bordered medium image">
-            <img src="{{ STATIC_URL }}/images/white-image.png"
-                 data-src="{{ STATIC_URL }}/images/{{ page.image }}">
-        </div>
-    </div>
-</div>
-<div class="ui segment tab" data-tab="panel-two">
+<div class="ui segment tab small images" data-tab="panel-two">
     {% for image in model.prec %}
         {{ show_image(image) }}
     {% endfor %}
 </div>
-<div class="ui segment tab" data-tab="panel-three">
+<div class="ui segment tab small images" data-tab="panel-three">
      {% for image in model.temp %}
         {{ show_image(image) }}
     {% endfor %}
 </div>
 {% endblock content %}
+
+{% block dialog %}
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Modal Title
+  </div>
+  <div class="content">
+    <img class="ui centered image" src="{{ STATIC_URL }}/images/white-image.png">
+  </div>
+  <div class="actions">
+    <div class="ui white deny button">
+      Cerrar
+    </div>
+  </div>
+</div>
+{% endblock %}
 
 {% block extrajs %}
 <script type="text/javascript">
@@ -58,6 +64,16 @@
                 duration   : 1000
             });
         }
-    }).tab("change tab", "panel-one");
+    }).tab("change tab", "panel-two");
+
+    $('a[href="#show"]').click(function (ev) {
+        var source = $(ev.target);
+        var img = $('.modal .content img');
+        var title = $('.modal .header');
+        title.html(source.attr("title"));
+        img.attr("src", source.attr("data-src"));
+        $('.ui.modal').modal('show');
+        ev.preventDefault();
+    });
 </script>
 {% endblock %}
