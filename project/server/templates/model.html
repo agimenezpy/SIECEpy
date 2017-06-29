@@ -16,14 +16,19 @@
         <div class="sub header">{{ page.description }}</div>
     </div>
 </h1>
-{{ page }}
 <div class="ui secondary pointing menu">
+    <a class="item" data-tab="panel-one">
+        Información
+    </a>
     <a class="item" data-tab="panel-two">
         Precipitación
     </a>
     <a class="item" data-tab="panel-three">
         Temperatura
     </a>
+</div>
+<div class="ui padded basic segment tab " data-tab="panel-one">
+    {{ page }}
 </div>
 <div class="ui segment tab small images" data-tab="panel-two">
     {% for image in model.prec %}
@@ -64,7 +69,7 @@
                 duration   : 1000
             });
         }
-    }).tab("change tab", "panel-two");
+    }).tab("change tab", "panel-one");
 
     $('a[href="#show"]').click(function (ev) {
         var source = $(ev.target);
