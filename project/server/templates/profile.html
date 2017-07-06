@@ -9,9 +9,10 @@
         <div class="ui three link cards">
         {% for person in model|sort(attribute='published') %}
         <div class="card">
-            <a href="{{ person.path }}.html">
-                <img class="ui small image centered" src="{{ person.profile }}">
-            </a>
+          <a href="{{ person.path }}.html" class="gray">
+            <img class="ui fluid image"
+                 src="{{ person.profile }}">
+          </a>
             <div class="content">
                 <div class="header">{{ person.title }}</div>
                 <div class="meta">{{ person.description }}</div>
@@ -28,7 +29,7 @@
     <div class="ui container">
         <div class="ui three column grid">
             <div class="ui column">
-                <div class="ui medium image">
+                <div class="ui fluid image">
                     <img src="{{ page.profile }}">
                 </div>
             </div>
