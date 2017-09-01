@@ -1,11 +1,26 @@
 {% extends "content.html" %}
 
 {% macro show_image(image) -%}
+    {% if not image.period %}
     <div class="ui bordered image">
-        <div class="ui small header centered">{{ image.title }}</div>
+       <div class="ui small header centered">{{ image.title }}</div>
        <a href="#show"> <img src="{{ STATIC_URL }}/images/white-image.png"
            data-src="/salida/{{ image.content }}" title="{{ image.title }}"></a>
     </div>
+    {% else %}
+      {% for period in image.period %}
+    <div class="ui bordered image">
+      <div class="ui small header centered">{{ image.title }} - {{ period }}
+        {% if image.region %}
+          <br> {{ image.region }}
+        {% endif %}
+      </div>
+      <a href="#show"> <img src="{{ STATIC_URL }}/images/white-image.png"
+           data-src="/salida/{{ image.content|format(period=period) }}"
+                            title="{{ image.title }}"></a>
+    </div>
+      {% endfor %}
+    {% endif %}
 {%- endmacro %}
 
 {% block content %}
@@ -36,7 +51,7 @@
     {% endfor %}
 </div>
 <div class="ui segment tab small images" data-tab="panel-three">
-     {% for image in model.temp %}
+    {% for image in model.temp %}
         {{ show_image(image) }}
     {% endfor %}
 </div>

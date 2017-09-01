@@ -15,8 +15,8 @@ class BaseConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     FLATPAGES_AUTO_RELOAD = DEBUG
     FLATPAGES_EXTENSION = ".md"
-    REMOTE_URL = "http://localhost:8080"
-    APPROVED_HOSTS = {"localhost:8080"}
+    REMOTE_URL = "http://clima.pol.una.py"
+    APPROVED_HOSTS = {"clima.pol.una.py"}
     CHUNK_SIZE = 1024
 
 

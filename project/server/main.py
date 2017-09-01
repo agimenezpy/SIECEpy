@@ -13,7 +13,8 @@ ROOT_DIR = os.path.abspath(os.path.dirname(BASE_DIR))
 app = Flask(__name__,
             template_folder=os.path.join(BASE_DIR, 'templates'),
             static_folder=os.path.join(ROOT_DIR, "public"))
-app_settings = os.getenv('APP_SETTINGS', 'project.server.config.DevelopmentConfig')
+app_settings = os.getenv('APP_SETTINGS',
+                         'project.server.config.DevelopmentConfig')
 app.config.from_object(app_settings)
 pages = FlatPages(app)
 
