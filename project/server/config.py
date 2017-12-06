@@ -18,6 +18,7 @@ class BaseConfig(object):
     REMOTE_URL = "http://clima.pol.una.py"
     APPROVED_HOSTS = {"clima.pol.una.py"}
     CHUNK_SIZE = 1024
+    OUTPUT_DIR = "/datos/SALIDAS"
 
 
 class DevelopmentConfig(BaseConfig):

@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 from flask.helpers import url_for
 from flask_flatpages import FlatPages
 from project.model import CLIMATE_MODELS
+from project.model.climate import ClimateModel
 
 __all__ = ['BASE_DIR', 'ROOT_DIR', 'app']
 
@@ -37,7 +38,9 @@ def content(path):
     template = page.meta.get('template', 'flatpage.html')
     extra = {"page": page}
     if path in CLIMATE_MODELS:
-        extra["model"] = CLIMATE_MODELS[path]
+        model = ClimateModel(CLIMATE_MODELS[path], app.config['OUTPUT_DIR'])
+        extra["model"] = model.data
+        extra["period"] = model.period
     if path == "equipo":
         extra["model"] = [subpage for subpage in pages if subpage.path.startswith("perfil")]
     return render_template(template, **extra)

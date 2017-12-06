@@ -6,12 +6,10 @@
        {% if image.period %}
           - {{ image.period }}
         {% endif %}
-        {% if image.region %}
-          <br> {{ image.region_name }}
-        {% endif %}
        </div>
        <a href="#show"> <img src="{{ STATIC_URL }}/images/white-image.png"
-           data-src="/salida{{ image.content }}" title="{{ image.title }}"></a>
+           data-src="/salida{{ image.content }}" title="{{ image
+           .period_name}}"></a>
     </div>
 {%- endmacro %}
 
@@ -23,7 +21,7 @@
         <div class="sub header">{{ page.description }}</div>
     </div>
 </h1>
-<div class="ui secondary pointing menu">
+<div class="ui secondary pointing menu parent">
     <a class="item" data-tab="panel-one">
         Información
     </a>
@@ -38,17 +36,33 @@
     {{ page }}
 </div>
 <div class="ui segment tab small images" data-tab="panel-two">
-    {% for image in model.prec %}
-        {% if not image.period or image.period == period %}
-        {{ show_image(image) }}
-        {% endif  %}
+    <div class="child ui secondary menu">
+        <a class="item active" data-tab="PARAGUAY1">Paraguay</a>
+        <a class="item" data-tab="SA1">Sudamérica</a>
+    </div>
+    {% for group in model.prec|groupby('region') %}
+        <div class="ui tab segment" data-tab="{{ group.grouper }}1">
+        {% for image in group.list|sort(attribute='order') %}
+            {% if image.period == period %}
+            {{ show_image(image) }}
+            {% endif %}
+        {% endfor %}
+        </div>
     {% endfor %}
 </div>
 <div class="ui segment tab small images" data-tab="panel-three">
-    {% for image in model.temp %}
-        {% if not image.period or image.period == period %}
-        {{ show_image(image) }}
-        {% endif %}
+    <div class="child ui secondary menu">
+        <a class="item active" data-tab="PARAGUAY2">Paraguay</a>
+        <a class="item" data-tab="SA2">Sudamérica</a>
+    </div>
+    {% for group in model.temp|groupby('region') %}
+        <div class="ui tab segment" data-tab="{{ group.grouper }}2">
+        {% for image in group.list|sort(attribute='order') %}
+            {% if image.period == period %}
+            {{ show_image(image) }}
+            {% endif %}
+        {% endfor %}
+        </div>
     {% endfor %}
 </div>
 {% endblock content %}
@@ -72,13 +86,15 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-    $('.menu .item').tab({
+    $('.parent.menu .item').tab({
         onVisible: function() {
             $(this).find('img').visibility({
                 type       : 'image',
                 transition : 'fade in',
                 duration   : 1000
             });
+            $('.child.menu .item').tab("change tab", "PARAGUAY1")
+                                  .tab("change tab", "PARAGUAY2");
         }
     }).tab("change tab", "panel-one");
 

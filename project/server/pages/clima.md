@@ -3,7 +3,7 @@ description: Weather Research and Forecasting Model
 published: 2017-05-25
 icon: sun yellow
 image: sa30k.png
-template: model.html
+template: clima.html
 
 El modelo _Weather Research and Forecasting (WRF)_ es un sistema de predicción 
 numérica del clima (NWP) y de simulación atmosférica diseñado para aplicaciones 
