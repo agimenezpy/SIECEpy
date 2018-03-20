@@ -16,7 +16,6 @@ class ClimateModel(object):
     def __init__(self, model, directory):
         prec = []
         temp = []
-        period = -1
 
         if model in listdir(directory):
             filenames = file_list(path.join(directory, model))
@@ -45,14 +44,33 @@ class ClimateModel(object):
                         result['period_name'] = get_trimester_names(
                             ord_period + 1)
                         result['order'] = 10*MEMBERS.index(meta['scenario']) + \
-                                          ord_period
-                        if ord_period > period:
-                            period = ord_period
+                            ord_period
+
+                    if 'year' in meta:
+                        result['year'] = int(meta['year'])
 
                     if meta['variable'] == 't':
                         temp.append(result)
                     else:
                         prec.append(result)
 
+        prec.sort(key=sort_by_year_month, reverse=True)
+        temp.sort(key=sort_by_year_month, reverse=True)
         self.data = dict(prec=prec, temp=temp)
-        self.period = PERIODS[period] if period > 0 else None
+        if len(prec) > 0 and len(temp):
+            self.extra = {
+                "p_period": prec[0].get("period", -1),
+                "p_year": prec[0].get("year", -1),
+                "t_period": temp[0].get("period", -1),
+                "t_year": temp[0].get("year", -1)
+            }
+
+
+def sort_by_year_month(recd):
+    value = 10000
+    if "year" in recd:
+        value = recd["year"]*10
+    if "period" in recd:
+        value += PERIODS.index(recd["period"])
+    return value
+

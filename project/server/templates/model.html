@@ -39,14 +39,14 @@
 </div>
 <div class="ui segment tab small images" data-tab="panel-two">
     {% for image in model.prec %}
-        {% if not image.period or image.period == period %}
+        {% if not image.period or (image.period == p_period and image.year == t_year) %}
         {{ show_image(image) }}
         {% endif  %}
     {% endfor %}
 </div>
 <div class="ui segment tab small images" data-tab="panel-three">
     {% for image in model.temp %}
-        {% if not image.period or image.period == period %}
+        {% if not image.period or (image.period == p_period and image.year == t_year) %}
         {{ show_image(image) }}
         {% endif %}
     {% endfor %}

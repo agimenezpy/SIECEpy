@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 PERIODS = ("EFM", "FMA", "MAM",
            "AMJ", "MJJ", "JJA", "JAS",
            "ASO", "SON", "OND", "NDE",
@@ -27,8 +27,9 @@ VARIABLES = {
 MATCHES = {
     "WRF3.4": "WRF3.4/(?P<region>\w+)-.*-(?P<variable>\w)\.gif",
     "CWRF3.4": "CWRF3.4/(?P<region>\w+)/(?P<scenario>\w+)/(?P<period>\w{3}).*"
-               "(?P<variable>\w?)_\d+.*\.jpg",
-    "CAM": "CAM/(?P<scenario>\w+)/(?P<period>\w{3}).*(?P<variable>\w?)_\d+\.png"
+               "(?P<variable>\w?)_(?P<year>\d+).*\.jpg",
+    "CAM": "CAM/(?P<scenario>\w+)/(?P<period>\w{3}).*(?P<variable>\w?)_"
+           "(?P<year>\d+)\.png"
 }
 
 CLIMATE_MODELS = {

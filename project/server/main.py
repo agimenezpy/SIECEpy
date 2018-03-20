@@ -1,6 +1,8 @@
 # Flask Application
 
+import logging
 import os
+
 from flask import Flask, render_template, request
 from flask.helpers import url_for
 from flask_flatpages import FlatPages
@@ -19,6 +21,14 @@ app_settings = os.getenv('APP_SETTINGS',
 app.config.from_object(app_settings)
 pages = FlatPages(app)
 
+
+if app.config.get("DEBUG"):
+    app.logger.setLevel(logging.DEBUG)
+else:
+    app.logger.setLevel(logging.INFO)
+
+
+LOG = app.logger.getChild(__name__)
 
 @app.context_processor
 def inject_static_url():
@@ -40,7 +50,8 @@ def content(path):
     if path in CLIMATE_MODELS:
         model = ClimateModel(CLIMATE_MODELS[path], app.config['OUTPUT_DIR'])
         extra["model"] = model.data
-        extra["period"] = model.period
+        extra.update(model.extra)
+
     if path == "equipo":
         extra["model"] = [subpage for subpage in pages if subpage.path.startswith("perfil")]
     return render_template(template, **extra)

@@ -43,8 +43,8 @@
     {% for group in model.prec|groupby('region') %}
         <div class="ui tab segment" data-tab="{{ group.grouper }}1">
         {% for image in group.list|sort(attribute='order') %}
-            {% if image.period == period %}
-            {{ show_image(image) }}
+            {% if image.period == p_period and image.year == p_year %}
+                {{ show_image(image) }}
             {% endif %}
         {% endfor %}
         </div>
@@ -58,8 +58,8 @@
     {% for group in model.temp|groupby('region') %}
         <div class="ui tab segment" data-tab="{{ group.grouper }}2">
         {% for image in group.list|sort(attribute='order') %}
-            {% if image.period == period %}
-            {{ show_image(image) }}
+            {% if image.period == t_period and image.year == t_year %}
+                {{ show_image(image) }}
             {% endif %}
         {% endfor %}
         </div>

@@ -4,7 +4,6 @@ from datetime import datetime, date
 from werkzeug.contrib import cache
 import logging
 
-logging.basicConfig(level=logging.INFO)
 LOG = logging.getLogger(__name__)
 
 locale.setlocale(locale.LC_ALL, 'es_PY.UTF-8')
