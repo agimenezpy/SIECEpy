@@ -26,8 +26,8 @@ VARIABLES = {
 
 MATCHES = {
     "WRF3.4": "WRF3.4/(?P<region>\w+)-.*-(?P<variable>\w)\.gif",
-    "CWRF3.4": "CWRF3.4/(?P<region>\w+)/(?P<scenario>\w+)/(?P<period>\w{3}).*"
-               "(?P<variable>\w?)_(?P<year>\d+).*\.jpg",
+    "CWRF3.4": "CWRF3.4/(?P<region>\w+)/(?P<scenario>\w+)/(?P<year>\d{4})-"
+               "(?P<month>\d{2})\+90_(?P<variable>\w)\.png",
     "CAM": "CAM/(?P<scenario>\w+)/(?P<period>\w{3}).*(?P<variable>\w?)_"
            "(?P<year>\d+)\.png"
 }

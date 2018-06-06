@@ -8,8 +8,7 @@
         {% endif %}
        </div>
        <a href="#show"> <img src="{{ STATIC_URL }}/images/white-image.png"
-           data-src="/salida{{ image.content }}" title="{{ image
-           .period_name}}"></a>
+           data-src="/salida{{ image.content }}" title="{{ image.period_name}}"></a>
     </div>
 {%- endmacro %}
 
@@ -21,10 +20,10 @@
         <div class="sub header">{{ page.description }}</div>
     </div>
 </h1>
+<div class="ui padded basic" data-tab="panel-one">
+    {{ page }}
+</div>
 <div class="ui secondary pointing menu parent">
-    <a class="item" data-tab="panel-one">
-        Información
-    </a>
     <a class="item" data-tab="panel-two">
         Precipitación
     </a>
@@ -32,35 +31,22 @@
         Temperatura
     </a>
 </div>
-<div class="ui padded basic segment tab " data-tab="panel-one">
-    {{ page }}
-</div>
 <div class="ui segment tab small images" data-tab="panel-two">
-    <div class="child ui secondary menu">
-        <a class="item active" data-tab="PARAGUAY1">Paraguay</a>
-        <a class="item" data-tab="SA1">Sudamérica</a>
-    </div>
-    {% for group in model.prec|groupby('region') %}
-        <div class="ui tab segment" data-tab="{{ group.grouper }}1">
+    {% for group in model.prec|groupby('region_name') %}
+        <div class="ui header">{{ group.grouper }}</div>
+        <div class="ui">
         {% for image in group.list|sort(attribute='order') %}
-            {% if image.period == p_period and image.year == p_year %}
-                {{ show_image(image) }}
-            {% endif %}
+              {{ show_image(image) }}
         {% endfor %}
         </div>
     {% endfor %}
 </div>
 <div class="ui segment tab small images" data-tab="panel-three">
-    <div class="child ui secondary menu">
-        <a class="item active" data-tab="PARAGUAY2">Paraguay</a>
-        <a class="item" data-tab="SA2">Sudamérica</a>
-    </div>
-    {% for group in model.temp|groupby('region') %}
-        <div class="ui tab segment" data-tab="{{ group.grouper }}2">
+    {% for group in model.temp|groupby('region_name') %}
+        <div class="ui header">{{ group.grouper }}</div>
+        <div class="ui">
         {% for image in group.list|sort(attribute='order') %}
-            {% if image.period == t_period and image.year == t_year %}
-                {{ show_image(image) }}
-            {% endif %}
+              {{ show_image(image) }}
         {% endfor %}
         </div>
     {% endfor %}
@@ -86,17 +72,15 @@
 
 {% block extrajs %}
 <script type="text/javascript">
-    $('.parent.menu .item').tab({
+    $('.menu .item').tab({
         onVisible: function() {
             $(this).find('img').visibility({
                 type       : 'image',
                 transition : 'fade in',
                 duration   : 1000
             });
-            $('.child.menu .item').tab("change tab", "PARAGUAY1")
-                                  .tab("change tab", "PARAGUAY2");
         }
-    }).tab("change tab", "panel-one");
+    }).tab("change tab", "panel-two");
 
     $('a[href="#show"]').click(function (ev) {
         var source = $(ev.target);
