@@ -3,35 +3,56 @@
 {% block bodyclass %}text{% endblock %}
 
 {% block content %}
-<div class="ui text container">
-  <h1 class="ui huge centered header">
-Sistema de Información para la adaptación a eventos climáticos extremos
-  </h1>
-  <h2 class="ui grey centered header">Pronósticos Disponibles</h2>
+<div class="ui vertical padded basic segment">
+    <h1 class="ui text centered header">
+      Sistema de Información para la adaptación a eventos climáticos extremos
+    </h1>
 </div>
-<br>
-<div class="ui stackable two column centered grid">
-    <!--div class="column">
-    <a href="tiempo.html" class="ui bordered medium image">
-        <img src="{{ STATIC_URL }}/images/image.png"
-        data-src="{{ STATIC_URL }}/images/short_forecast.png">
-        <div class="ui bottom attached blue label">Corto Plazo | 3 días</div>
-    </a>
-    </div-->
-    <div class="column">
-        <a href="clima.html" class="ui bordered medium image">
-        <img src="{{ STATIC_URL }}/images/image.png"
-        data-src="{{ STATIC_URL }}/images/cwrf.png">
-            <div class="ui bottom attached green label">Mediano Plazo Regional | 3 meses</div>
+<div class="ui vertical stripe segment">
+    <h4 class="ui horizontal header divider">
+      <a href="#">PRONÓSTICOS DISPONIBLES</a>
+    </h4>
+    <div class="ui stackable two column centered grid">
+        <!--div class="column">
+        <a href="tiempo.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+            data-src="{{ STATIC_URL }}/images/short_forecast.png">
+            <div class="ui bottom attached blue label">Corto Plazo | 3 días</div>
         </a>
+        </div-->
+        <div class="column">
+            <a href="clima.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+            data-src="{{ STATIC_URL }}/images/cwrf.png">
+                <div class="ui bottom attached green label">Mediano Plazo Regional | 3 meses</div>
+            </a>
+        </div>
+        <div class="column">
+          <a href="atmos.html" class="ui bordered medium image">
+            <img src="{{ STATIC_URL }}/images/image.png"
+                 data-src="{{ STATIC_URL }}/images/cam.png">
+            <div class="ui bottom attached blue label">Mediano Plazo Global
+              | 3 meses</div>
+          </a>
+        </div>
     </div>
-    <div class="column">
-      <a href="atmos.html" class="ui bordered medium image">
-        <img src="{{ STATIC_URL }}/images/image.png"
-             data-src="{{ STATIC_URL }}/images/cam.png">
-        <div class="ui bottom attached blue label">Mediano Plazo Global
-          | 3 meses</div>
-      </a>
+</div>
+<div class="ui vertical stripe segment">
+    <div class="ui equal width stackable internally celled grid">
+        <div class="center aligned row">
+            <div class="column">
+                <img src="{{ url_for('static', filename='images/fpuna.png') }}"
+                     class="ui centered image">
+            </div>
+            <div class="column">
+                <img src="{{ url_for('static', filename='images/guyra.png') }}"
+                     class="ui centered image">
+            </div>
+            <div class="column">
+                <img src="{{ url_for('static', filename='images/conacyt.png') }}"
+                     class="ui centered image">
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

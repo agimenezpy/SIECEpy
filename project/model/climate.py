@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from os import walk, path, listdir
 from re import match
 from . import (REGIONS, SCENARIOS, VARIABLES, MATCHES, PERIODS, MEMBERS)
 from project.utils.dates import get_trimester_names
 import logging
+from itertools import groupby
 
 LOG = logging.getLogger(__name__)
 
@@ -38,22 +40,25 @@ class ClimateModel(object):
                     )
                     if 'region' in meta:
                         result['region'] = meta['region']
-                        result['region_name'] = unicode(REGIONS[meta[
-                            'region']], 'utf-8')
+                        result['region_name'] = REGIONS[meta[
+                            'region']].decode("utf-8")
+                    else:
+                        result['region'] = "global"
+
                     if 'scenario' in meta:
                         result['scenario'] = SCENARIOS[meta['scenario']]
                         result['title'] = SCENARIOS[meta['scenario']]
                         result['order'] = 10 * MEMBERS.index(meta['scenario'])
 
                     if 'period' in meta:
-                        ord_period = PERIODS.index(meta['period'])
                         result['period'] = meta['period']
-                        result['period_name'] = get_trimester_names(
-                            ord_period + 1)
-                        result['order'] += ord_period
+                        result['period_ord'] = PERIODS.index(meta['period'])
+                        result['period_name'] = get_trimester_names(result['period_ord'] + 1)
+                        result['order'] += result['period_ord']
 
                     if 'year' in meta:
                         result['year'] = int(meta['year'])
+
                     if 'month' in meta:
                         result['month'] = int(meta['month'])
 
@@ -62,23 +67,27 @@ class ClimateModel(object):
                     else:
                         prec.append(result)
 
-        prec.sort(key=sort_by_year_month, reverse=True)
-        temp.sort(key=sort_by_year_month, reverse=True)
-        self.data = dict(prec=prec, temp=temp)
-        if len(prec) > 0 and len(temp) > 0:
-            self.extra = {
-                "p_period": prec[0].get("period", -1),
-                "p_year": prec[0].get("year", -1),
-                "t_period": temp[0].get("period", -1),
-                "t_year": temp[0].get("year", -1)
-            }
+        self.data = dict(prec=[], temp=[])
+        self.extra = {}
+
+        for region, values in groupby(prec, group_key):
+            data = list(values)
+            max_date = concat_date(max(data, key=concat_date))
+            self.data["prec"] += filter(lambda it: max_date == concat_date(it),
+                                        data)
+
+        for region, values in groupby(temp, group_key):
+            data = list(values)
+            max_date = concat_date(max(data, key=concat_date))
+            self.data["temp"] += filter(lambda it: max_date == concat_date(it),
+                                        data)
 
 
-def sort_by_year_month(recd):
-    value = 10000
-    if "year" in recd:
-        value = recd["year"]*10
-    if "period" in recd:
-        value += PERIODS.index(recd["period"])
-    return value
+def concat_date(recd):
+    return recd.get("year", 1000)*100 + recd.get("period_ord", 0) \
+           + recd.get("month", 0)
+
+
+def group_key(recd):
+    return recd["region"]
 

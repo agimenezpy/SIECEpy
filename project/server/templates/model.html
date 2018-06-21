@@ -15,6 +15,8 @@
     </div>
 {%- endmacro %}
 
+{% block bodyclass %}text{% endblock %}
+
 {% block content %}
 <h1 class="ui header">
     <i class="{{ page.icon }} full icon"></i>
@@ -35,17 +37,13 @@
     </a>
 </div>
 <div class="ui segment tab small images" data-tab="panel-two">
-    {% for image in model.prec %}
-        {% if not image.period or (image.period == p_period and image.year == t_year) %}
+    {% for image in model.prec|sort(attribute='order') %}
         {{ show_image(image) }}
-        {% endif  %}
     {% endfor %}
 </div>
 <div class="ui segment tab small images" data-tab="panel-three">
-    {% for image in model.temp %}
-        {% if not image.period or (image.period == p_period and image.year == t_year) %}
+    {% for image in model.temp|sort(attribute='order') %}
         {{ show_image(image) }}
-        {% endif %}
     {% endfor %}
 </div>
 {% endblock content %}
