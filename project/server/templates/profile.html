@@ -16,9 +16,6 @@
             <div class="content">
                 <div class="header">{{ person.title }}</div>
                 <div class="meta">{{ person.description }}</div>
-                <div class="description">
-                {{ person }}
-                </div>
             </div>
         </div>
         {% endfor %}
@@ -27,14 +24,13 @@
 {% else %}
     <h1>{{ page.title }}</h1>
     <div class="ui container">
-        <div class="ui three column grid">
+        <div class="ui two column grid">
             <div class="ui column">
                 <div class="ui fluid image">
                     <img src="{{ page.profile }}">
                 </div>
             </div>
-            <div class="ui two column">
-                <div class="ui header">{{ page.description }}</div>
+            <div class="ui column">
                 {{ page }}
             </div>
         </div>

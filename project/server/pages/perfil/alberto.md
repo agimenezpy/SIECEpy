@@ -1,7 +1,7 @@
 title: Alberto Gimenez
-description: Informática
+description: Facultad Politécnica
 published: 2017-05-25 12:03
 template: profile.html
-profile: https://www.gravatar.com/avatar/647265e429aeeb36871f1d3bb07c046f?s=200
+profile: https://media.licdn.com/dms/image/C4D03AQGzB44d_kHP4A/profile-displayphoto-shrink_200_200/0?e=1543449600&v=beta&t=DldLgJAa-r_6VCpryjiDw-PFpfRkx4jkLSJ8j2YsNHI
 
-Soporte IT
+Desarrollo y Soporte en Tecnologías de Información
